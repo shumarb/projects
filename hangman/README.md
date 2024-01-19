@@ -15,7 +15,7 @@ At the end of the game, a message is displayed that indicates whether or not you
 ## Instructions
 1. If your local machine has not been configured with the `Eclipse IDE`, follow the installation instructions [here](https://github.com/shumarb/training/blob/main/fdm/software-to-install/EclipseIDEInstallation.md).
 2. If your local machine has not been configured with `Java 17`, follow the installation instructions [here](https://github.com/shumarb/training/blob/main/fdm/software-to-install/Java17Installation.md).
-3. Download the [zip folder](https://github.com/shumarb/training/blob/main/fdm/object-oriented-development/part-1/sheikhumar_hangman.zip) of the project to your local machine
+3. Download the [zip folder](https://github.com/shumarb/projects/blob/main/hangman/hangman.zip) of the project to your local machine
 4. Unzip the zip file. The unzipped folder is called `com.fdmgroup.hangman`
 5. Open the `Eclipse IDE`.
 6. Select `File`.
