@@ -17,9 +17,9 @@ The following are the datasets that the sytem relies on. These datasets are stor
 The following explains how the system processes each transaction:
 1. Check if the *USER* exists.
 2. Check if the *FROMCURRENCY* AND *TOCURRENCY* are both unique to one another and exists in the aforementioned 148 currencies.
-3. Checks if the *USER* has the *FROMCURRENCY* in his/her wallet
+3. Checks if the *USER* has the *FROMCURRENCY* in his/her wallet.
 4. Checks that the amount of the *FROMCURRENCY* to be converted is less than or equal to the amount of the *FROMCURRENCY* in his/her wallet.
-5. If the transaction satisfies all checks in steps **1 to 4**, the system executes the transaction updates the *USER*'s wallet accordingly. Otherwise, the system skips the transaction.
+5. If the transaction satisfies all checks in **Steps 1 to 4**, the system executes the transaction updates the *USER*'s wallet accordingly. Otherwise, the system skips the transaction.
 6. The console displays the logging messages for each transaction.
 For every valid transaction, the console displays a message that the transaction was successful and the amount of the *FROMCURRENCY* that is converted to the *TOCURRENCY*.
 For every skipped transaction, the console displays a message that the transaction was skipped and the reason the transaction was skipped.
@@ -33,19 +33,19 @@ For every skipped transaction, the console displays a message that the transacti
 5. Open the `Eclipse IDE`.
 6. Select `File`.
 7. Select `Import`.
-8. Select `Maven`
+8. Select `Maven`.
 9. Select `Existing Maven Project`.
 9. At `Root Directory`, select `Browse`.
 10. Select the unzipped file. 
-11. Select `Finish`. You will see the `currency-conversion-system` Maven project in the `Package Explorer`
-12. Select the `>` icon of the `currency-conversion-system` Maven project
-13. Select the `>` icon of the `src/main/java` folder
-14. Select the `>` icon of the `main` package
-15. Right-click `Runner.java`
-16. Select `Run As`
-17. Select `1. Java Application`
+11. Select `Finish`. You will see the `currency-conversion-system` Maven project in the `Package Explorer`.
+12. Select the `>` icon of the `currency-conversion-system` Maven project.
+13. Select the `>` icon of the `src/main/java` folder.
+14. Select the `>` icon of the `main` package,
+15. Right-click `Runner.java`.
+16. Select `Run As`.
+17. Select `1. Java Application`.
 18. Logging information will be displayed for the outcome of running the `transactions.txt` file in the `src/main/resources` folder.
-19. Refresh `src/main/java`
+19. Refresh `src/main/java`.
 20. Select `users.json`. Users of valid transactions will have their wallets updated.
 20. Refresh the `src/main/resources` folder.
 21. Select `logging.log` to see the logging messages.
