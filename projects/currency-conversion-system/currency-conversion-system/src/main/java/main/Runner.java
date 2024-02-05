@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -310,6 +311,7 @@ public class Runner {
 	 */
 	public static void currencyConversion(User user, String fromCurrency, String toCurrency, double amountToConvert) throws StreamReadException, DatabindException, IOException {
 		
+		DecimalFormat df = new DecimalFormat("#.##");
 		double amountToIncreaseToCurrencyBy = 0;
 		
 		// 1. Conversion of currency
@@ -336,23 +338,13 @@ public class Runner {
 			amountToIncreaseToCurrencyBy = convertAmountFromUsd(toCurrency, amountToConvertInUsd);		
 		}
 		
-		// 2. Update toCurrency and fromCurrency values in the user's wallet
+		// 2. Update the toCurrency and fromCurrency values in the user's wallet
+		user.updatesWallet(fromCurrency, toCurrency, amountToConvert, amountToIncreaseToCurrencyBy);
 		
-		// 2.1 Increase the value of toCurrency in the user's wallet by amountToIncreaseToCurrencyBy
-		user.increaseCurrencyValueInWallet(toCurrency, amountToIncreaseToCurrencyBy);
+		// 3. Display message to indicate conversion of currencies has been successfully completed
+		logger.info("Valid Transaction: Success! Converted " + fromCurrency + df.format(amountToConvert) + " to " + toCurrency + df.format(amountToIncreaseToCurrencyBy) + " for " + user.getName() + ".");
 		
-		// 2.2. Decrease the value of the from currency in the user's wallet by the amountToConvert
-		user.decreaseCurrencyValueInWallet(fromCurrency, amountToConvert);
-					
-		// 3. If the value of the fromCurrency in the user's wallet is now zero, remove it from the user's wallet
-		if (user.isValueOfCurrencyInWalletEqualToZero(fromCurrency)) {
-			user.removesCurrencyWithValueOfZero(fromCurrency);
-		}
-		
-		// 4. Display message to indicate conversion of currencies has been successfully completed
-		logger.info("Valid Transaction: Success! Converted " + fromCurrency + amountToConvert + " to " + toCurrency + amountToIncreaseToCurrencyBy + " for " + user.getName() + ".");
-		
-		// 5. Update user's profile in users.json with updated values and currencies in wallet
+		// 4. Update user's profile in users.json with updated values and currencies in wallet
 		serialization();
 	}
 	

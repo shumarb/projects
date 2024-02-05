@@ -187,6 +187,26 @@ public class User {
 	}
 	
 	/*
+	 * Update user's wallet after a valid transaction
+	 * 
+	 * @params currency to be converted from, currency to be converted to, amount of currency to be converted from, and amount to increase currency to be converted to
+	 */
+	public void updatesWallet(String fromCurrency, String toCurrency, double amountToConvert, double amountToIncreaseToCurrencyBy) {
+		
+		// 1. Increase value of toCurrency
+		this.increaseCurrencyValueInWallet(toCurrency, amountToIncreaseToCurrencyBy);
+		
+		// 2. Decrease value of fromCurrency
+		this.decreaseCurrencyValueInWallet(fromCurrency, amountToConvert);
+		
+		// 3. If the value of the fromCurrency in the user's wallet is zero, remove it from the user's wallet 
+		if (this.isValueOfCurrencyInWalletEqualToZero(fromCurrency)) {
+			removesCurrencyWithValueOfZero(fromCurrency);
+		}
+	
+	}
+	
+	/*
 	 * Retrieves number of currencies in a user's wallet
 	 * 
 	 * @return -1 if user's wallet is null, else a non-negative number
