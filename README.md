@@ -4,8 +4,9 @@ This repository is a summary of my projects.
 ## 2023 - Present
 Project                                                             | Origin                                                                                                         | Award
 --------------------------------------------------------------------| -------------------------------------------------------------------------------------------------------------- | -------
-[Currency Conversion System](https://github.com/shumarb/projects/tree/main/projects/currency-conversion-system) | [FDM Group](https://github.com/shumarb/training/fdm)                 | -
+[Currency Conversion System](https://github.com/shumarb/projects/tree/main/projects/currency-conversion-system) | [FDM Group](https://github.com/shumarb/training/tree/main/fdm)                 | -
 [Hangman](https://github.com/shumarb/projects/tree/main/projects/hangman) | [FDM Group](https://github.com/shumarb/training/tree/main/fdm)                                           | -
+[Learning](https://github.com/shumarb/learning) | [Learning](https://github.com/shumarb/learning) | -
 
 ## 2018 - 2019
 Project                                                             | Origin                                                                                                         | Award
