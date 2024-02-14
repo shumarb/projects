@@ -6,10 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.fdmgroup</groupId>
-	<artifactId>ood3</artifactId>
+	<artifactId>fxconvert</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>ood3</name>
+	<name>fxconvert</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
