@@ -13,7 +13,7 @@ BookZone is a platform serving librarians at the Singapore Book Collectors club 
 
 ## Setup
 1. Ensure your local machine is configured with Git, Java, Eclipse IDE, MySQL, and MySQL Workbench.
-2. Clone this repository onto your local machine.
+2. Download the [zip folder](https://github.com/shumarb/projects/tree/main/projects/bookZone/bookZone.zip) of the project ot your local machine.
 3. Open the Eclipse IDE.
 4. Select File.
 5. Select Import.
