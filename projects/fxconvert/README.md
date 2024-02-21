@@ -25,7 +25,7 @@ For every valid transaction, the console displays a message that the transaction
 For every skipped transaction, the console displays a message that the transaction was skipped and the reason the transaction was skipped.
 7. The logging messages of each transaction is stored in a log file called **logging.log**, which is located in the **src/main/resources** folder. This logger file is created only after running the **Runner.java** file.
 
-## Instructions
+## Setup
 1. If your local machine has not been configured with the `Eclipse IDE`, follow the installation instructions [here](https://github.com/shumarb/training/blob/main/fdm/software-to-install/EclipseIDEInstallation.md).
 2. If your local machine has not been configured with `Java 17`, follow the installation instructions [here](https://github.com/shumarb/training/blob/main/fdm/software-to-install/Java17Installation.md).
 3. Download the [zip folder](https://github.com/shumarb/projects/blob/main/projects/fxconvert/fxconvert.zip) of the project to your local machine.
@@ -38,14 +38,16 @@ For every skipped transaction, the console displays a message that the transacti
 8. At `Root Directory`, select `Browse`.
 9. Select the unzipped file. 
 10. Select `Finish`. You will see the `fxconvert` Maven project in the `Package Explorer`.
-11. Select the `>` icon of the `fxconvert` Maven project.
-12. Select the `>` icon of the `src/main/java` folder.
-13. Select the `>` icon of the `main` package.
-14. Right-click `Runner.java`.
-15. Select `Run As`.
-16. Select `1. Java Application`.
-17. Logging information will be displayed for the outcome of running the `transactions.txt` file in the `src/main/resources` folder.
-18. Refresh `src/main/java`.
-19. Select `users.json`. Users of valid transactions will have their wallets updated.
-20. Refresh the `src/main/resources` folder.
-21. Select `logging.log` to see the logging messages.
+
+## Instructions
+1. Select the `>` icon of the `fxconvert` Maven project.
+2. Select the `>` icon of the `src/main/java` folder.
+3. Select the `>` icon of the `main` package.
+4. Right-click `Runner.java`.
+5. Select `Run As`.
+6. Select `1. Java Application`.
+7. Logging information will be displayed for the outcome of running the `transactions.txt` file in the `src/main/resources` folder.
+8. Refresh `src/main/java`.
+9. Select `users.json`. Users of valid transactions will have their wallets updated.
+10. Refresh the `src/main/resources` folder.
+11. Select `logging.log` to see the logging messages.
