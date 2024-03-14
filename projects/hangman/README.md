@@ -12,7 +12,7 @@ If you enter either a letter you had previously entered, a message is displayed 
 If you enter a letter that is in the word, your number of guesses remains unchanged, and you are to enter a letter again. 
 At the end of the game, a message is displayed that indicates whether or not you successfully guessed the word.
 
-## Instructions
+## Setup
 1. If your local machine has not been configured with the `Eclipse IDE`, follow the installation instructions [here](https://github.com/shumarb/training/blob/main/fdm/software-to-install/EclipseIDEInstallation.md).
 2. If your local machine has not been configured with `Java 17`, follow the installation instructions [here](https://github.com/shumarb/training/blob/main/fdm/software-to-install/Java17Installation.md).
 3. Download the [zip folder](https://github.com/shumarb/projects/blob/main/projects/hangman/hangman.zip) of the project to your local machine
@@ -24,10 +24,12 @@ At the end of the game, a message is displayed that indicates whether or not you
 9. Navigate to the location of the unzipped file.
 10. Select the unzipped file.
 11. Select `Finish`. You will see the `com.fdmgroup.hangman` Java project in the `Package Explorer`.
-12. Select the `>` icon of the `com.fdmgroup.hangman` Java project.
-13. Select the `>` icon of the `src` folder.
-14. Select the `>` icon of the `com.fdmgroup.hangman` package.
-15. Right-click `Runner.java`.
-16. Select `Run As`.
-17. Select `1. Java Application`.
-18. Follow the instructions displayed in console on how to play the Hangman game.
+
+## Instructions
+1. Select the `>` icon of the `com.fdmgroup.hangman` Java project.
+2. Select the `>` icon of the `src` folder.
+3. Select the `>` icon of the `com.fdmgroup.hangman` package.
+4. Right-click `Runner.java`.
+5. Select `Run As`.
+6. Select `1. Java Application`.
+7. Follow the instructions displayed in console on how to play the Hangman game.
