@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{navbar :: head}"></div>
+    <meta charset="UTF-8">
+    <title>Rewards</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/rewards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script>
+        function closeInsufficientFundsPopup() {
+            document.getElementById('insufficient-funds-modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            history.pushState({}, document.title, window.location.pathname);
+        }
+
+        function showInsufficientFundsPopup() {
+            document.getElementById('insufficient-funds-modal').style.display = 'flex';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function showConfirmationPopup(button) {
+
+            // Find the parent rewards card element
+            var rewardsCard = button.closest('.rewards-card');
+            // Extract the name and cost
+            var rewardsName = rewardsCard.querySelector('.rewards-title').textContent;
+            var rewardsCost = rewardsCard.querySelector('.rewards-points').textContent;
+            var itemId = rewardsCard.querySelector('.rewards-id').textContent;
+            setFormId(itemId);
+
+            var myPoints = document.querySelector('.my-points').innerText;
+            myPoints = parseInt(myPoints.split(' ')[3]); // Extract the points as an integer
+            if (myPoints >= parseInt(rewardsCost)) {
+                document.getElementById('confirmation-popup').style.display = 'flex';
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('rewards-body').innerText = "Are you sure you want to claim '" + rewardsName + "' for " + rewardsCost + "?";
+            } else {
+                document.getElementById('insufficient-funds-modal').style.display = 'flex';
+                document.getElementById('overlay').style.display = 'block';
+            }
+
+        }
+
+        function closeConfirmationPopup() {
+            document.getElementById('confirmation-popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function setFormId(itemId) {
+            document.getElementById('purchase-form-item-id').value = itemId;
+        }
+
+        function submitPurchaseForm() {
+            var form = document.getElementById('purchase-form');
+            form.submit();
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="main-container">
+        <!-- insufficient points popup  -->
+        <div class="overlay" id="overlay" style="display: none;"></div>
+        <div class="insufficient-funds-popup-container" id="insufficient-funds-modal" style="display: none">
+            <div class="insufficient-funds-popup-header">Insufficient Points</div>
+            <div class="insufficient-funds-popup-content-box">
+                <div class="insufficient-funds-popup-content-title">Uh-oh! It seems you don't have enough reward points
+                    to claim this reward.
+                    You can either claim another item or earn more points.
+                </div>
+            </div>
+            <div class="insufficient-funds-popup-button-stack">
+                <div class="insufficient-funds-popup-button-primary" onclick="closeInsufficientFundsPopup();">Confirm
+                </div>
+            </div>
+        </div>
+
+        <!-- confirmation popup  -->
+        <div class="insufficient-funds-popup-container" id="confirmation-popup" style="display: none">
+            <div class="insufficient-funds-popup-header">Redeem Rewards Confirmation</div>
+            <div class="insufficient-funds-popup-content-box">
+                <div class="insufficient-funds-popup-content-title" id="rewards-body">
+                </div>
+            </div>
+            <div class="insufficient-funds-popup-button-stack">
+                <div class="insufficient-funds-popup-button-primary" onclick="submitPurchaseForm();">Confirm</div>
+                <div class="popup-button-secondary" onclick="closeConfirmationPopup();">Cancel</div>
+            </div>
+        </div>
+
+
+        <div th:replace="~{navbar :: body}"></div>
+
+        <div class="content" th:object="${user}">
+            <div class="page-top-container"> </div>
+            <div class="container">
+                <div class="content-container">
+                    <div class="title-container">
+                        <div>
+                            <div class="page-title">Rewards</div>
+                            <div class="page-subtitle">View, redeem and enjoy your rewards</div>
+                        </div>
+                        <div style="margin-bottom: 96px;"></div>
+                        <div class="my-points" th:text="'My Reward Points: ' + ${user.getRewardsPoints()} + ' Points'">
+                        </div>
+                    </div>
+                    <div class="rewards-container">
+                        <div class="left-container">
+                            <div th:each="reward : ${rewards}" th:if="${reward.itemId % 2 != 0}">
+                                <div class="rewards-card">
+                                    <img th:src="${reward.imageUrl}">
+                                    <div class="rewards-content">
+                                        <div class="rewards-title" th:text="${reward.name}"></div>
+                                        <div class="rewards-body" th:text="${reward.description}"></div>
+                                        <div class="rewards-points" th:text="${reward.cost} + ' Points'"></div>
+                                        <div class="rewards-id" th:text="${reward.itemId}" hidden></div>
+                                    </div>
+                                    <div class="claim-button" onclick="showConfirmationPopup(this);">Claim Now</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right-container">
+                            <div th:each="reward : ${rewards}" th:if="${reward.itemId % 2 == 0}">
+                                <div class="rewards-card">
+                                    <img th:src="${reward.imageUrl}">
+                                    <div class="rewards-content">
+                                        <div class="rewards-title" th:text="${reward.name}"></div>
+                                        <div class="rewards-body" th:text="${reward.description}"></div>
+                                        <div class="rewards-points" th:text="${reward.cost} + ' Points'"></div>
+                                        <div class="rewards-id" th:text="${reward.itemId}" hidden></div>
+                                    </div>
+                                    <div class="claim-button" onclick="showConfirmationPopup(this);">Claim Now</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hidden form for submitting purchase request -->
+                    <form id="purchase-form" method="post" action="/rewards/purchase" hidden>
+                        <input id="purchase-form-item-id" name="itemId" value="123">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,351 @@
+.rewards-container{
+    width: 1044px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 48px;
+}
+
+.left-container, .right-container{
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.my-points {
+position: fixed;
+right: 96px;
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+width: 431px;
+height: 72px;
+
+background: #FFFFFF;
+border: 1px solid #E2E8F0;
+box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+border-radius: 6px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+text-align: center;
+letter-spacing: -0.01em;
+
+color: #121212;
+}
+
+.rewards-card{
+
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 24px;
+gap: 24px;
+width: 100%;
+background: #FFFFFF;
+border: 1px solid #E2E8F0;
+
+}
+
+.rewards-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 383px;
+    height: 176px;
+}
+
+.rewards-title{
+
+/* L/Semibold */
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+/* identical to box height, or 133% */
+letter-spacing: -0.02em;
+
+/* Neutral/100 */
+color: #121212;
+
+}
+
+.title-container {
+    margin-block: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rewards-body{
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    letter-spacing: -0.01em;
+
+    color: #344055;
+}
+
+.rewards-points{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+    letter-spacing: -0.01em;
+
+    color: #121212;
+}
+
+.claim-button{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px 24px;
+gap: 8px;
+
+width: 138px;
+height: 48px;
+
+/* Violet/Main - 500 */
+background: #4F46E5;
+/* Shadow-1 */
+box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+border-radius: 1000px;
+
+width: 90px;
+height: 24px;
+/* L/Semibold */
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+/* identical to box height, or 133% */
+letter-spacing: -0.02em;
+/* Neutral/10 */
+color: #FFFFFF;
+}
+
+.claim-button:hover{
+    background: #473FCE;
+}
+
+.claim-button:active{
+    background: #3821C0;
+}
+
+img{
+    max-width: 150px;
+    height: 145px;
+
+}
+
+.overlay{
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.48);
+	z-index: 2;
+}
+
+.insufficient-funds-popup-container{
+	/* Popup */
+	z-index: 3;
+	box-sizing: border-box;
+	
+	/* Auto layout */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 24px 24px 48px;
+	gap: 24px;
+	
+	position: absolute;
+	width: 589px;
+	top: 24%;
+	left: 30%;
+	
+	/* Base/White */
+	background: #FFFFFF;
+	/* Neutral/40
+	
+	Border. divider
+	*/
+	border: 1px solid #E2E8F0;
+	/* Shadow-1 */
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 6px;
+}
+
+.insufficient-funds-popup-header{
+	display: flex;
+	align-items: center;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 30px;
+	/* identical to box height, or 125% */
+	text-align: center;
+	letter-spacing: -0.024em;
+}
+
+.insufficient-funds-popup-content-box{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0px;
+	width: 541px;
+	height: 75px;
+}
+
+.insufficient-funds-popup-content-title{
+	/* Account */
+
+	height: 24px;
+	
+	/* M/Regular */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	/* identical to box height, or 150% */
+	letter-spacing: -0.01em;
+	
+	/* Neutral/90 */
+	color: #344055;
+}
+
+.insufficient-funds-popup-button-stack{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 0px;
+	gap: 24px;
+	
+	width: 247px;
+	height: 48px;
+}
+
+.insufficient-funds-popup-button-primary{
+	/* Button */
+	
+	/* Auto layout */
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 12px 24px;
+	gap: 8px;
+	
+	width: 116px;
+	height: 48px;
+	
+	/* Violet/Main - 500 */
+	background: #4F46E5;
+	/* Shadow-1 */
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 1000px;
+	
+	width: 68px;
+	height: 24px;
+	
+	/* L/Semibold */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.02em;
+	
+	/* Neutral/10 */
+	color: #FFFFFF;
+	
+	/* Inside auto layout */
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+}
+
+.popup-button-secondary{
+	/* Button */
+
+
+	/* Auto layout */
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 12px 24px;
+	gap: 8px;
+	
+	width: 107px;
+	height: 48px;
+	
+	/* Neutral/10
+	
+	FFFFFF
+	*/
+	background: #FFFFFF;
+	/* Neutral/40
+	
+	Border. divider
+	*/
+	border: 1px solid #E2E8F0;
+	/* Shadow-1 */
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 1000px;
+	
+	/* Inside auto layout */
+	flex: none;
+	order: 1;
+	flex-grow: 0;
+	
+	width: 59px;
+	height: 24px;
+	
+	/* L/Semibold */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.02em;
+	
+	/* Neutral/70 */
+	color: #79808A;
+}
+
+.insufficient-funds-popup-button-primary:hover{
+	background: #473FCE;
+}
+
+.popup-button-secondary:hover{
+	background: #E2E8F0;
+}
+
+.insufficient-funds-popup-button-primary:active{
+	background: #3821C0;
+}
+
+.popup-button-secondary:active{
+	background: #EFF2F6;
+}
+

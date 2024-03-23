@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div  th:replace="~{navbar :: head}"></div>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="/css/transaction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+    <script th:inline="javascript">
+        function isAmountValid() {
+		    var amountInput = document.getElementById('amountValue');
+		    var amountValue = amountInput.value;
+		    var isValid = /^(?!0\d)\d+(\.\d+)?$/.test(amountValue);
+		    
+		    // 1. Verify input is in correct format and more than 0
+		    if (!isValid) {
+		        alert("Please enter a valid amount.");
+		        return false;
+		    }
+			
+			// 2. Verify input is a float and more than 0
+		    if (parseFloat(amountValue) <= 0) {
+		        alert("Amount must be more than 0.");
+		        return false;
+		    }
+		
+		    // 3. Verify input has at most 2 decimal places
+		    if ((amountValue.split('.')[1] || '').length > 2) {
+		        alert("Amount must have at most 2 decimal places.");
+		        return false;
+		    }
+
+		    return true;
+		}
+
+        function toggleBankAccountNumber(event, index) {
+            event.stopPropagation();
+            var accountNumberElement = document.getElementById("bankaccount-number"+index);
+            var fullAccountNumber = accountNumberElement.getAttribute("data-full-account-number");
+            var lastFourDigits = accountNumberElement.getAttribute("data-last-four-digits");
+            if (accountNumberElement.innerText.trim() === fullAccountNumber) {
+                accountNumberElement.innerHTML = ("Bank Account ************ - " + lastFourDigits + ' <i onclick="toggleBankAccountNumber(event,' +index + ')" class="fas fa-eye bankaccount-number hoverable"></i>');
+            } else {
+                accountNumberElement.innerHTML = (fullAccountNumber + ' <i onclick="toggleBankAccountNumber(event,' +index + ')" class="fas fa-eye-slash bankaccount-number hoverable"></i>');
+            }
+        }
+
+        function toggleCreditCardNumber(event, index) {
+            event.stopPropagation();
+            var creditCardElement = document.getElementById("creditCard-number"+index);
+            var fullCreditCard = creditCardElement.getAttribute("data-full-credit-number");
+            var lastFourDigits = creditCardElement.getAttribute("data-last-four-digits-credit");
+            if (creditCardElement.innerText.trim() === fullCreditCard) {
+                creditCardElement.innerHTML = ("Credit Card ************ - " + lastFourDigits + ' <i onclick="toggleCreditCardNumber(event,' +index + ')" class="fas fa-eye creditCard-number hoverable"></i>');
+            } else {
+                creditCardElement.innerHTML = (fullCreditCard + ' <i onclick="toggleCreditCardNumber(event,' + index + ')" class="fas fa-eye-slash creditCard-number hoverable"></i>');
+            }
+        }
+        
+        function displayBankModal() {
+		    
+		    document.getElementById('bankModal').style.display = 'flex';
+		    document.getElementById('overlay').style.display = 'block';
+		    
+		}
+
+		function closeBankModal() {
+            document.getElementById('bankModal').style.display = 'none';
+            document.getElementById('overlay').style.display='none';
+        }
+
+		function displayCardModal() {
+		    
+		    document.getElementById('cardModal').style.display = 'flex';
+		    document.getElementById('overlay').style.display = 'block';
+		    
+		}
+
+		function closeCardModal() {
+            document.getElementById('cardModal').style.display = 'none';
+            document.getElementById('overlay').style.display='none';
+        }
+
+		function isUserCardFull(){
+			 var rewardProfileId = document.getElementById('rewardProfileId');
+			 var rewardProfileIdValue = rewardProfileId.value;
+			
+			if (rewardProfileIdValue === '') {
+	        	alert("You can no longer register for a new card as you have cards of all reward profiles available.");
+	        	return true;
+	    }
+	    		return false;
+		}
+		
+
+        function submitBankForm() {
+            document.getElementById('createNewAccount').submit();
+        }
+        
+        function submitCardForm() {
+           	if(!isUserCardFull()){ 
+           		document.getElementById('createNewCard').submit();
+           	}
+        }
+        
+    </script>
+</head>
+
+<body>
+<div class="main-container">
+	<div class = "overlay" id ="overlay" style="display: none;"></div>
+        <div class = "create-new-bank-account-popup-container" id = "bankModal" style="display: none">
+                <div class = "popup-header" > Confirmation </div>
+                <div class = "popup-bank-account-box">
+                    <div class = "popup-bank-account-body"> Add New Bank Account? </div>  
+                </div>
+                <div class = "popup-bankaccount-button-stack">
+                    <div type="button" class = "popup-button-confirm" onclick="submitBankForm()"> Confirm </div>
+                    <div type="button" class="popup-button-cancel" onclick="closeBankModal()"> Cancel </div>
+                </div>
+        </div>
+        
+        <div class = "create-new-creditcard-account-popup-container" id = "cardModal" style="display: none">
+        	
+                <div class = "popup-header" > Create New Credit Card </div>
+                <form method="post" action="/dashboard/createNewCreditCard" id="createNewCard">
+                <div class = "popup-creditcard-account-box">
+                    <div class = "popup-content-title"> Credit Card Type </div>  
+                    <select class="card-types-options" name="rewardProfileId" id="rewardProfileId">
+                        <th:block th:each="rewardsProfile : ${rewardsProfiles}">
+						    <option th:value="${rewardsProfile.getRewardProfileId()}" 
+						            th:text="${registeredRewardsProfiles.contains(rewardsProfile) ? (rewardsProfile.getName() + ' (You already have a card of this reward profile.)') : rewardsProfile.getName()}"
+						            th:attr="disabled=${registeredRewardsProfiles.contains(rewardsProfile) ? 'disabled' : null}">
+						    </option>
+						</th:block>
+                    </select>
+                </div>
+                <div class = "popup-creditcard-account-box2">
+                    <div class = "popup-creditcard-account-body"> Credit Card Limit </div>
+                    <input type="text" class="spendinglimit-input" id="amountValue" name="spendingLimit" placeholder="$0.00"><br>  
+                </div>
+                </form>
+                <div class = "popup-creditcard-button-stack">
+                    <div type="button" class = "popup-button-confirm" onclick="if(isAmountValid()) {submitCardForm();}"> Confirm </div>
+                    <div type="button" class = "popup-button-cancel" onclick="closeCardModal()"> Cancel </div>
+                </div>
+           
+        </div>
+	
+    <div th:replace="~{navbar :: body}"></div>
+
+    <div class="content" th:object="${user}">
+        <div class="page-top-container"> </div>
+        <div class="container" >
+            <div class="content-container">
+                <div class="title">
+                    <div class="page-title">Dashboard</div>
+                    <div class="page-subtitle">Summary Information</div>
+                </div>
+
+                <div class="info-container">
+
+                    <div class="bank-account-container">
+                        <div class="bank-account-info" th:each="bankAccount, status : ${user.bankAccounts}"
+                            th:onclick="|submitBankAccountForm(event, '${status.index}')|">
+                            <form name="ba-form" method="post" action="/bankaccount">
+                                <input name="selectedBankAccountNumber" th:value="${bankAccount.accountNumber}" hidden>
+                                <div class="bankaccount-number" th:id="'bankaccount-number' + ${status.index}"
+	                                th:data-full-account-number="'Bank Account ' + ${bankAccount.accountNumber}"
+	                                th:data-last-four-digits="${#strings.substring(bankAccount.accountNumber, 12, 16)}">
+	                                Bank Account ************ - [[${#strings.substring(bankAccount.accountNumber, 12, 16)}]]
+	                                <i th:onclick="|toggleBankAccountNumber(event, '${status.index}')|" class="fas fa-eye bankaccount-number hoverable"></i>
+	                            </div>
+                                <button class="dashboard-card-button">
+	                                <div class="balance">
+	                                    <div>Balance</div>
+	                                    <div class="dashboard-amount" th:text="'$' + ${bankAccount.currentBalance}"></div>
+                                    </div>
+	                            </button>
+                            </form>
+                        </div>
+                        <!-- new bank account button  -->
+              			<form method="post" action="/dashboard/createNewBankAccount" id="createNewAccount">
+	                        <button type="button" class ="icon-button-box" onclick="displayBankModal();">
+	                            <div class = "icon-button"> 
+	                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 plus-svg">
+	                                    <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+	                                  </svg>
+	                            </div>
+	                            <div class = "icon-button-text"> New Bank Account </div>
+	                        </button>
+						</form>
+                    </div>
+
+                    <div class="credit-card-container">
+                        <div class="credit-card-info" th:each="creditCard, status : ${user.creditCards}" 
+                            th:onclick="|submitCreditCardForm(event, '${status.index}')|">
+                            <form name="cc-form" method="post" action="/creditcard">
+                                <input th:value="${creditCard.accountNumber}" name="creditCardNumber" hidden>
+                                <div class="creditCard-number" th:id="'creditCard-number'+${status.index}"
+                                    th:data-full-credit-number="'Credit Card ' + ${creditCard.accountNumber}"
+                                    th:data-last-four-digits-credit="${#strings.substring(creditCard.accountNumber, 12, 16)}">
+                                    Credit Card ************ - [[${#strings.substring(creditCard.accountNumber, 12, 16)}]]
+                                    <i th:onclick="|toggleCreditCardNumber(event,'${status.index}')|" class="fas fa-eye creditCard-number hoverable"></i>
+                                </div>
+                                <button class="dashboard-card-button">
+                                    <div class="balance">
+                                        <div>Remaining Balance</div>
+                                        <div class="dashboard-amount" th:text="'$' + ${creditCard.currentBalance}"></div>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- new credit card button  -->
+                        
+	                    <button type="button" class ="icon-button-box" onclick="if(!isUserCardFull()){displayCardModal();}">
+	                    	<div class = "icon-button"> 
+	                        	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 plus-svg">
+	                                    <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+	                            </svg>
+	                        </div>
+	                        <div class = "icon-button-text"> New Credit Card </div>
+	                   </button>
+						
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Transaction Receipt</title>
+    <div th:replace="~{navbar :: head}"></div>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/transactionReceipt.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+
+<body>
+<div class="main-container">
+    <!-- Navbar -->
+    <div th:replace="~{navbar :: body}"></div>
+
+    <div class="content">
+        <!-- Page title -->
+        <div class="page-top-container"> </div>
+        <div class="container">
+            <div class="content-container">
+                <div class="title">
+                    <div class="page-title">Transaction Receipt</div>
+                    <div class="page-subtitle">Summary information of transaction</div>
+                </div>
+
+                <!-- Transaction info -->
+                <div class="transaction-info-container">
+                    <div class="transaction-form-title">
+                        Time
+                    </div>
+                    <div class="transaction-form-content">
+                        <span th:text="${time}"></span>
+                    </div>
+                    <div class="transaction-form-title">
+                        Transaction ID
+                    </div>
+                    <div class="transaction-form-content">
+                        <span th:text="${id}"></span>
+                    </div>
+                    <div class="transaction-form-title">
+                        Description
+                    </div>
+                    <div class="transaction-form-content">
+                        <span th:if="${source}" th:text="'Bank account used:  '+${source}"></span><br>
+                        <span th:if="${destination}" th:text="'For Payment of Credit Card: '+ ${destination}"></span>
+                    </div>
+                    <div class="transaction-form-title">
+                        Transaction Type
+                    </div>
+                    <div class="transaction-form-content">
+                        <span th:text="${type}"></span>
+                    </div>
+                    <div class="transaction-form-title">
+                        Amount
+                    </div>
+                    <div class="transaction-form-content">
+                        <span th:if="${source}" th:text="'$' + ${#numbers.formatDecimal(amount,0,'COMMA',2,'POINT')}"></span>
+                        <span th:if="${itemName}" th:text="${amount} + ' Reward Points'"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

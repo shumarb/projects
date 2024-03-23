@@ -1,0 +1,310 @@
+.button-stack {
+	display: flex;
+	flex-direction: row;
+	gap: 24px;
+	width: 100%;
+}
+
+.icon-button-box {
+	width: 510px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+	gap: 14px;
+	background: #F7F8FD;
+	border: 1px solid #E2E8F0;
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 6px;
+}
+
+.bank-account-info:hover,
+.credit-card-info:hover,
+.icon-button-box:hover {
+	cursor: pointer;
+	background: #EFF2F6;
+	/* Change to the desired color */
+}
+
+.icon-button-box:hover .icon-button {
+	background: #473FCE;
+	/* Change to the desired color */
+}
+
+.icon-button-box:hover .icon-button-text {
+	color: #473FCE;
+	/* Change to the desired color */
+}
+
+
+.icon-button {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	width: 40px;
+	height: 40px;
+	background: #4F46E5;
+	border-radius: 1000px;
+
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+}
+
+
+.icon-button-text {
+	/* Pay Bills */
+
+	height: 24px;
+
+	/* L/Semibold */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.02em;
+
+	/* Violet/Main - 500 */
+	color: #4F46E5;
+}
+
+.plus-svg {
+	height: 18px;
+	color: #fff;
+}
+
+.create-new-bank-account-popup-container,
+.create-new-creditcard-account-popup-container {
+	/* Popup */
+	z-index: 3;
+	box-sizing: border-box;
+
+	/* Auto layout */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 24px 24px 48px;
+	gap: 24px;
+
+	position: absolute;
+	width: 598px;
+	top: 24%;
+	left: 30%;
+
+	/* Base/White */
+	background: #FFFFFF;
+	/* Neutral/40
+	
+	Border. divider
+	*/
+	border: 1px solid #E2E8F0;
+	/* Shadow-1 */
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 6px;
+}
+
+
+.popup-bank-account-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0px;
+	width: 541px;
+
+}
+
+.popup-creditcard-account-box {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 541px;
+
+}
+
+.popup-bank-account-body,
+.popup-creditcard-account-body {
+	/* height: 51px; */
+
+	/* M/Regular */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	/* identical to box height, or 150% */
+	letter-spacing: -0.01em;
+
+	/* Neutral/100 */
+	color: #121212;
+}
+
+.popup-bankaccount-button-stack,
+.popup-creditcard-button-stack {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 0px;
+	gap: 24px;
+
+	width: 247px;
+	height: 24px;
+}
+
+.popup-button-confirm {
+	/* Button */
+
+	/* Auto layout */
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 12px 24px;
+	gap: 8px;
+
+	/* Violet/Main - 500 */
+	background: #4F46E5;
+	/* Shadow-1 */
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 1000px;
+
+	width: 68px;
+	height: 24px;
+
+	/* L/Semibold */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.02em;
+
+	/* Neutral/10 */
+	color: #FFFFFF;
+
+	/* Inside auto layout */
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+
+}
+
+.popup-button-cancel {
+	/* Button */
+
+
+	/* Auto layout */
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 12px 24px;
+	gap: 8px;
+
+	width: 107px;
+	height: 48px;
+
+	/* Neutral/10
+
+FFFFFF
+*/
+	background: #FFFFFF;
+	/* Neutral/40
+
+Border. divider
+*/
+	border: 1px solid #E2E8F0;
+	/* Shadow-1 */
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 1000px;
+
+	/* Inside auto layout */
+	flex: none;
+	order: 1;
+	flex-grow: 0;
+
+	width: 59px;
+	height: 24px;
+
+	/* L/Semibold */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.02em;
+
+	/* Neutral/70 */
+	color: #79808A;
+}
+
+.popup-button-confirm:hover{
+	background: #473FCE;
+}
+
+.popup-button-cancel:hover{
+	background: #E2E8F0;
+}
+
+.popup-button-confirm:active{
+	background: #3821C0;
+}
+
+.popup-button-cancel:active{
+	background: #EFF2F6;
+}
+
+.dashboard-amount {
+	font-size: 28px;
+	font-weight: 300;
+	line-height: 40px;
+	text-align: right;
+}
+
+.card-types-options,
+.spendinglimit-input {
+	/* Selection/Button */
+
+	box-sizing: border-box;
+
+	/* Auto layout */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 6px 12px;
+	/* gap: 24px; */
+
+	height: 51px;
+
+	/* Neutral/10
+	
+	FFFFFF
+	*/
+	background: #FFFFFF;
+	/* Neutral/40
+	
+	Border. divider
+	*/
+	border: 1px solid #E2E8F0;
+	/* Shadow-1 */
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 6px;
+
+	/* Inside auto layout */
+	flex: none;
+	align-self: stretch;
+	flex-grow: 0;
+}
+
+.popup-creditcard-account-box2 {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 541px;
+	padding-top: 24px;
+}

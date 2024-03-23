@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Card Transaction Form</title>
+</head>
+<body>
+<h1>Credit Card Transaction Form</h1>
+<form action="#" th:action="@{/creditcard-add}" th:object="${transaction}" method="post">
+    <label for="creditCard">Select Credit Card:</label>
+    <select id="creditCard" name="creditCard">
+        <option th:each="card : ${user.creditCards}" th:value="${card.accountNumber}" th:text="${card.accountNumber}"></option>
+    </select><br>
+
+    <label for="date">Date:</label>
+    <input type="datetime-local" id="date" name="date" th:value="${#temporals.format(transaction.date, 'yyyy-MM-ddTHH:mm')}" required><br>
+    <label for="storeInfo">Store Info:</label>
+
+
+    <label for="storeInfo">Store Info: (String Description)</label>
+    <input type="text" id="storeInfo" th:field="*{storeInfo}" required><br>
+    <label for="merchantCategoryCode">Merchant Category Code (3 or 4 Digit Number):</label>
+    <input type="text" id="merchantCategoryCode" name="merchantCategoryCode" pattern="[1-9]\d{2,3}" required><br>
+    <label for="originalCurrencyCode">Original Currency Code:</label>
+    <select id="originalCurrencyCode" name="originalCurrencyCode">
+        <option value="USD">United States Dollar</option>
+        <option value="SGD">Singapore Dollar</option>
+        <option value="HKD">Hong Kong Dollar</option>
+        <option value="EUR">EURO</option>
+        <option value="JPY">Japanese Yen</option>
+        <option value="GBP">Pound Sterling</option>
+        <option value="AUD">Australian Dollar</option>
+        <option value="CAD">Canadian Dollar</option>
+        <option value="CHF">Swiss Franc</option>
+        <option value="CNY">Chinese Renminbi</option>
+    </select><br>
+    <label for="originalCurrencyAmount">Original Currency Amount:</label>
+    <input type="text" id="originalCurrencyAmount" th:field="*{originalCurrencyAmount}" pattern="[0-9]+(\.[0-9]+)?" required><br>
+    <button type="submit">Submit</button>
+</form>
+<h2><div th:if="${message}" th:text="${message}" style="color: green;"></div></h2>
+<h2 th:if="${error}" th:text="${error}" style="color: red;"></h2>
+<h3><a href="/dashboard">Go back dashboard</a></h3>
+<h2> MCC
+<br><br>FDM REVOLUTION: (Default)<br>
+Miscellaneous Stores: 5712 - 5714, 5722, 5733  <br>
+Transportation Services: 4011, 4111, 4112, 4119, 4121, 4131, 4411
+<br><br>FDM EVOL:<br>
+Airlines: 3000 - 3300  <br>
+Car Rent: 3351 - 3441  <br>
+Hotels: 3501 - 3838
+<br><br>FDM SIGNATURE:<br>
+Personal Services: 7230, 7251 <br>
+Business Services: 7311, 7321, 7322
+<br><br>FDM LADY'S CARD:<br>
+Clothing: 5611, 5621, 5631, 5641, 5651, 5655 <br>
+Retail Outlet: 5200, 5211, 5231, 5251, 5261, 5262, 5271 <br>
+<br><br>Others: 1520, 1711, 1731, 1740, 2744, 2842, 7523 </h2>
+</body>
+</html>

@@ -1,0 +1,377 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    font-family: Inter;
+}
+
+.separate-line {
+    border-top: 1px solid #fff;
+    margin: 10px 0;
+}
+
+.content {
+    width: calc(100vw - 300px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.page-top-container {
+    height: 85px;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+
+.content-container {
+    width: 1044px;
+    height: calc(100vh - 85px);
+}
+
+.title {
+    margin-block: 25px;
+}
+
+.page-title {
+    font-family: Inter;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.page-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #5B6776;
+}
+
+.info-container {
+    width: 1044px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bank-account-container,
+.credit-card-container {
+    width: 1044px;
+}
+
+.bank-account-info,
+.credit-card-info {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    border: 1px solid lightgrey;
+    margin-bottom: 15px;
+    padding: 14px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+}
+
+.bankaccount-number,
+.creditCard-number {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.balance, .available-balance, .limit, .bills, .minimum-payment, .due-date,.card-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 8px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing: -0.024em;
+    color: #5B6776;
+}
+
+.hoverable:hover {
+    color: #4F46E5;
+    padding-left: 16px;
+    cursor: pointer;
+}
+
+.hoverable {
+    color: #64748B;
+    padding-left: 16px;
+}
+
+.amount {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 40px;
+    text-align: right;
+    color: #344055;
+}
+
+.purple-button {
+    width: 120px;
+    height: 60px;
+    top: -606px;
+    left: 1518px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 1000px;
+    gap: 8px;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    background: #4F46E5;
+    color: #FFFFFF; /* Text color */
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin-right: 20px;
+    transition: background-color 0.3s;
+}
+
+.purple-button:hover {
+    background-color: #473FCE;
+}
+
+.white-button {
+    background: #FFFFFF;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    width: 120px;
+    height: 60px;
+    border: none;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    border: 1px solid #E2E8F0;
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 1000px;
+    gap: 8px;
+    margin-right: 20px;
+    color: #79808A;
+    transition: background-color 0.3s;
+}
+
+.white-button:hover {
+    background-color: #F8FAFC;
+}
+
+.label-styling {
+    font-family: Inter, sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	color: #4F46E5;
+ }
+
+ .divider { 
+	background-color:rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+	width:996px;
+	height:1px;
+}
+
+.icon-button-box{
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 23px 274px;
+	gap: 14px;
+	background: #F7F8FD;
+	border: 1px solid #E2E8F0;
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 6px;
+}
+.icon-button-box:hover {
+    background: #EFF2F6; /* Change to the desired color */
+}
+.icon-button-box:hover .icon-button{
+    background: #473FCE; /* Change to the desired color */
+}
+.icon-button-box:hover .icon-button-text{
+    color: #473FCE; /* Change to the desired color */
+}
+
+.icon-button{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	width: 40px;
+	height: 40px;
+	background: #4F46E5;
+	border-radius: 1000px;
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+}
+
+.icon-button-text{
+    /* Pay Bills */
+
+	width: 70px;
+	height: 24px;
+	
+	/* L/Semibold */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.02em;
+	
+	/* Violet/Main - 500 */
+	color: #4F46E5;
+}
+
+.plus-svg{
+    height: 18px;
+    color: #fff;
+}
+
+.transactions{
+    width: 100%;
+}
+
+.transactions-head { 
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0px;
+	height:56px;
+	padding: 0px 16px;
+	left: 0px;
+	top: 0px;
+	background: #F8FAFC;
+	border-bottom: 1px solid #E2E8F0;
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+.head-time, .head-id{
+	width: 21%;
+	height: 24px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #121212;
+}
+
+.head-description, .head-type{
+	width: 23.5%;
+	height: 24px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #121212;
+}
+
+.head-amount{
+	width: 11%;
+	height: 24px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #121212;
+}
+
+.transactions-body{
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #344055;
+}
+
+.body-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0px 16px;
+}
+
+.body-time,
+.body-id {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 20px 0px;
+	gap: 4px;
+	width: 21%;
+	background: #FFFFFF;
+}
+
+.body-type {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 20px 0px;
+	gap: 4px;
+	width: 23.5%;
+	background: #FFFFFF;
+    margin-left: 1px;
+}
+
+.body-description {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 20px 0px;
+    gap: 4px;
+    width: 23.5%;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.body-amount {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 20px 0px;
+	gap: 4px;
+	width: 11%;
+	background: #FFFFFF;
+}

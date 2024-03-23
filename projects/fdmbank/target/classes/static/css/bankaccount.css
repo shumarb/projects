@@ -1,0 +1,281 @@
+.info-container {
+	width: 1044px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.bank-account-container {
+	width: 1044px;
+}
+
+.amount {
+	font-size: 28px;
+	font-weight: 300;
+	line-height: 40px;
+	text-align: right;
+}
+
+.icon-button-box-container {
+	display: flex;
+	width: auto;
+}
+
+.bank-account-balance {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-block: 8px;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 30px;
+	color: #344055;
+	;
+}
+
+.bankaccount-number {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.bank-account-info {
+	display: flex;
+	flex-direction: column;
+	border-radius: 6px;
+	border: 1px solid lightgrey;
+	margin-bottom: 15px;
+	padding: 14px;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 32px;
+	text-align: left;
+}
+
+.icon-button-box>div>form>div>button {
+	border: none;
+	background-color: transparent;
+	box-shadow: none;
+	color: inherit;
+	font-size: 18px;
+	color: #4F46E5;
+}
+
+.icon-button-box {
+	box-sizing: border-box;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 23px;
+	gap: 0px;
+	background: #F7F8FD;
+	border: 1px solid #E2E8F0;
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+	border-radius: 6px;
+}
+
+.icon-button-box:hover,
+.icon-button-box>div>form>div>button:hover {
+	background: #EFF2F6;
+	/* Change to the desired color */
+	cursor: pointer;
+}
+
+.icon-button-container:hover .icon-button {
+	background: #473FCE;
+	/* Change to the desired color */
+}
+
+.icon-button-container:hover .icon-button-text {
+	color: #473FCE;
+	/* Change to the desired color */
+}
+
+.icon-button-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.icon-button {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	width: 40px;
+	height: 40px;
+	background: #4F46E5;
+	border-radius: 1000px;
+
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+}
+
+.icon-button-text {
+	/* L/Semibold */
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.02em;
+
+	/* Violet/Main - 500 */
+	color: #4F46E5;
+}
+
+.plus-svg{
+    height: 18px;
+    color: #fff;
+}
+
+.page-title {
+    font-family: Inter;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.transactions-head {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0px;
+	height: 56px;
+	padding: 0px 16px;
+	left: 0px;
+	top: 0px;
+	background: #F8FAFC;
+	border-bottom: 1px solid #E2E8F0;
+	box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+.hoverable {
+	color: #64748B;
+}
+
+.hoverable:hover {
+    color: #4F46E5;
+    cursor: pointer;
+}
+
+.head-time,
+.head-id {
+	width: 21%;
+	height: 24px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #121212;
+}
+
+.head-description,
+.head-type {
+	width: 23.5%;
+	height: 24px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #121212;
+}
+
+.head-amount {
+	width: 11%;
+	height: 24px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #121212;
+}
+
+.transactions-body {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.01em;
+	color: #344055;
+}
+
+.body-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0px 16px;
+}
+
+.body-time,
+.body-id {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 20px 0px;
+	gap: 4px;
+	width: 21%;
+	background: #FFFFFF;
+}
+
+.body-type {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 20px 0px;
+	gap: 4px;
+	width: 23.5%;
+	background: #FFFFFF;
+}
+
+.body-description {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 20px 0px;
+    gap: 4px;
+    width: 23.5%;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.body-amount {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 20px 0px;
+	gap: 4px;
+	width: 11%;
+	background: #FFFFFF;
+}
+
+.green-color {
+    color: #2B825C;
+
+}
+
+.red-color {
+    color: #D1493D;  
+}
+
+.button-box{
+	display:flex; 
+	flex-direction: row;
+}
+.body-id a {
+	text-decoration: none;
+}

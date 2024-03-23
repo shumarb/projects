@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Login/Register</title>
+</head>
+
+<body>
+    <img src="/svg/circlelogo.svg" alt="circle logo" class ="logo">
+    <div class="container" id="container" th:classappend="${signUpActive} ? 'active' : ''">
+        <div class="form-container sign-up">
+            <form method="post" action="register" th:object="${user}">
+                <h1>Sign Up</h1>
+                <div th:if="${unsuccessfulMessage}" class = "error-message" th:text="${unsuccessfulMessage}"></div>
+                <input type="text" name="username" placeholder="Username" required>
+                <div class = "input-container">
+                    <input type="password" name="password" id="password" placeholder="Password" oninput="checkPasswordStrength()" onblur="hidePasswordStrength()">
+                    <i id = "togglePassword" class="fa-solid fa-eye" onclick="togglePasswordVisibility('password', 'togglePassword')"></i>
+                </div>
+                <div class = "input-container">
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+                    <i id = "toggleConfirmPassword" class="fa-solid fa-eye" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')"></i>
+                </div>
+                <div class = "password-strength" id="passwordStrength" style="display: none;"> Password Strength: </div>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form method="post" action="login">
+                <h1>Sign In</h1>
+                <h1 class="error" th:if="${param.error}" th:text="${param.error}"></h1>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your details to use all of the site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1 >Welcome to FDM Bank</h1>
+                    <p th:if="${#strings.isEmpty(logoutMessage) and #strings.isEmpty(successMessage)}">Register with your details to use all of the site features</p>
+                    <p class="tagline" th:if="${not #strings.isEmpty(logoutMessage)}" th:text="${logoutMessage}"></p>
+                    <p class="tagline" th:if="${not #strings.isEmpty(successMessage)}" th:text="${successMessage}"></p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/index.js"></script>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script>
+        function submitBankAccountForm(event, index) {
+            event.stopPropagation();
+            var form = document.getElementsByName("ba-form")[index];
+            form.submit();
+        }
+
+        function submitCreditCardForm(event, index) {
+            event.stopPropagation();
+            var form = document.getElementsByName("cc-form")[index];
+            form.submit();
+        }
+    </script>
+</head>
+
+<body>
+    <div th:fragment="body" class="navbar">
+
+        <div class="left-menu" th:object="${user}">
+            <div>
+                <div class="left-menu-top">
+                    <img src="/svg/icon.svg">
+                </div>
+
+                <div class="left-menu-mid">
+                    <div class="left-menu-button" id="dashboard-button">
+                        <i class="fas fa-home"></i>
+                        <div class="left-menu-button-text">Dashboard</div>
+                    </div>
+
+                    <div class="left-menu-title">
+                        <i class="fas fa-money-bill"></i>
+                        <div class="left-menu-button-text">Bank Account(s)</div>
+                    </div>
+
+                    <div class="left-menu-list">
+                        <div class="left-menu-sub-button" th:each="bankAccount, status : ${user.bankAccounts}"
+                            th:onclick="|submitBankAccountForm(event, '${status.index}')|">
+                            <form name="ba-form" method="post" action="/bankaccount">
+                                <input th:value="${bankAccount.accountNumber}" name="selectedBankAccountNumber" hidden>
+                                <button class="left-menu-sub-button-text"
+                                    th:text="'************ - ' +${#strings.substring(bankAccount.accountNumber,12,16)}"></button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="left-menu-title">
+                        <i class="far fa-credit-card"></i>
+                        <div class="left-menu-button-text">Credit Card(s)</div>
+                    </div>
+
+                    <div class="left-menu-list">
+                        <div class="left-menu-sub-button" th:each="creditCard, status : ${user.creditCards}"
+                            th:onclick="|submitCreditCardForm(event, '${status.index}')|">
+                            <form name="cc-form" method="post" action="/creditcard">
+                                <input th:value="${creditCard.accountNumber}" name="creditCardNumber" hidden>
+                                <button class="left-menu-sub-button-text"
+                                    th:text="'************ - ' +${#strings.substring(creditCard.accountNumber,12,16)}"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="left-menu-button" id="cardinfo-button">
+                        <i class="fas fa-star"></i>
+                        <div class="left-menu-button-text">Card Info</div>
+                    </div>
+                    <div class="left-menu-button" onclick="rewards()">
+                        <i class="fas fa-shopping-bag"></i>
+                        <div class="left-menu-button-text">Rewards</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="left-menu-bot">
+                <div class="left-menu-text">
+                    <i class="fas fa-user"></i>
+                    <div class="left-menu-button-text" th:text="${user.username}"></div>
+                </div>
+
+                <div class="left-menu-button" onclick="logout()">
+                    <i class="fas fa-door-open"></i>
+                    <div class="left-menu-button-text">Logout</div>
+                </div>
+                <script>
+                    document.getElementById("dashboard-button").addEventListener("click", navigateToDashboard);
+                    function navigateToDashboard() {
+                        window.location.href = '/dashboard';
+                    }
+                    
+                    document.getElementById("cardinfo-button").addEventListener("click", navigateToCardinfo);
+                    function navigateToCardinfo() {
+                        window.location.href = '/cardsinfo';
+                    }
+                    
+                    function logout() {
+                        // Perform logout action
+                        window.location.href = '/logout'; // Redirect to logout URL
+                    }
+
+                    function dashboard() {
+                        window.location.href = '/dashboard';
+                    }
+
+                    function cardinfo() {
+                    	window.location.href = '/cardsinfo';
+                    }
+                    
+                    function rewards() {
+                        window.location.href = '/rewards';
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

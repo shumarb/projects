@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{navbar :: head}"></div>
+	<meta charset="UTF-8">
+	<title>Bank Accounts</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/bankaccount.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:inline="javascript">
+		$(document).ready(function () {
+			$(document).on("click", ".bankaccount-number i", function () {
+				var iconElement = $(this);
+				var bankAccountElement = iconElement.parent();
+				var fullBankAccount = bankAccountElement.data("full-account-number");
+				var lastFourDigits = bankAccountElement.data("last-four-digits");
+
+				if (bankAccountElement.text().trim() === fullBankAccount) {
+					bankAccountElement.html("Bank Account ************ - " + lastFourDigits + ' <i class="fas fa-eye hoverable"></i>');
+				} else {
+					bankAccountElement.html(fullBankAccount + ' <i class="fas fa-eye-slash creditCard-number hoverable"></i>');
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="main-container">
+
+		<div th:replace="~{navbar :: body}"></div>
+
+		<div class="content" th:object="${bankAccount}">
+			<div class="page-top-container"> </div>
+			<div class="container">
+				<div class="content-container">
+					<div class="title">
+						<div class="page-title">Bank Accounts</div>
+						<div class="page-subtitle">Keep track of your finances</div>
+					</div>
+
+					<!-- Bank Account Info -->
+					<div class="info-container">
+						<div class="bank-account-container">
+							<div class="bank-account-info">
+								<div class="bankaccount-number"
+									th:data-full-account-number="'Bank Account ' + ${bankAccount.accountNumber}"
+									th:data-last-four-digits="${#strings.substring(bankAccount.accountNumber, 12, 16)}">
+									Bank Account ************ - [[${#strings.substring(bankAccount.accountNumber, 12,
+									16)}]]
+									<i class="fas fa-eye hoverable"></i>
+								</div>
+								<div class="bank-account-balance">
+									<div>Balance</div>
+									<div class="amount"
+										th:text="'$' + ${#numbers.formatDecimal(bankAccount.currentBalance,1,2)}"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Navigation Buttons -->
+					<div class="icon-button-box-container">
+
+						<div class="icon-button-box" onclick="document.forms['transfer-form'].submit();">
+							<div style="width:100%; text-align: center">
+								<form method="post" action="/transfer" id="transfer-form">
+									<input type="text" th:value="${bankAccount.accountNumber}" name="accountId" hidden
+										readonly>
+									<div class="icon-button-container" style="width:100%">
+										<div class="icon-button">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+												fill="#FFFFFF" class="w-6 h-6 plus-svg">
+												<path fill-rule="evenodd"
+													d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+													clip-rule="evenodd" />
+											</svg>
+										</div>
+									</div>
+									<div>
+										<button type="submit" class="icon-button-text">Transfer</button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<div class="icon-button-box" onclick="document.forms['deposit-form'].submit();">
+							<div style="width:100%; text-align: center">
+								<form method="post" action="/transaction" id="deposit-form">
+									<input type="text" th:value="${bankAccount.accountNumber}" name="accountId" hidden
+										readonly>
+									<div class="icon-button-container" style="width:100%">
+										<div class="icon-button">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+												fill="#FFFFFF" class="w-6 h-6 plus-svg">
+												<path fill-rule="evenodd"
+													d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+													clip-rule="evenodd" />
+											</svg>
+										</div>
+									</div>
+									<div>
+										<button type="submit" class="icon-button-text">Deposit/Withdraw</button>
+									</div>
+								</form>
+							</div>
+						</div>
+ 
+
+
+					</div>
+				
+
+				<!-- Bank Transactions -->
+				<div class="content-container">
+					<div class="title">
+						<div class="page-title"> Recent Transactions</div>
+					</div>
+					<div class="transactions">
+						<div class="transactions-head">
+							<div class="head-time">Time</div>
+							<div class="head-id">Transaction ID</div>
+							<div class="head-description">Description</div>
+							<div class="head-type">Transaction Type</div>
+							<div class="head-amount">Amount</div>
+						</div>
+						<div class="transactions-body">
+							<div class="body-row" th:each="transaction:${transactionHistory}">
+								<div class="body-time" th:text="${#temporals.format(transaction.date, 'yyyy-MM-dd HH:mm')}"></div>
+								<div class="body-id">
+								    <a th:href="${transaction.creditCard} ? @{/paybills/receipt/{id}(id=${transaction.transactionId})} : @{/transaction/receipt/{id}(id=${transaction.transactionId})}">
+								        <span th:text="${transaction.transactionId}"></span>
+								    </a>
+								</div>
+								<div class="body-description">
+									<!-- Case for credit card payment -->
+									<span th:if="${transaction.creditCard}" th:text="'Payment to ' + ${transaction.creditCard.accountNumber}"></span>
+									<span th:unless="${transaction.creditCard}">
+										<!-- Case for Deposit -->
+										<span th:if="${transaction.accountFromId == -1}">Cash Deposit</span>
+										<!-- Case for Withdrawal -->
+										<span th:if="${transaction.accountToId == -1}">Cash Withdrawal</span>
+										<!-- Case for Incoming Transfer -->
+										<span th:if="${#strings.toString(transaction.accountFromId) == bankAccount.accountNumber and transaction.accountToId != -1}">
+											<span th:text="'Outgoing transfer to ' + ${transaction.accountToId}"></span>
+										</span>
+										<!-- Case for Outgoing Transfer -->
+										<span th:if="${#strings.toString(transaction.accountToId) == bankAccount.accountNumber and transaction.accountFromId != -1}">
+											<span th:text="'Incoming transfer from ' + ${transaction.accountFromId}"></span>
+										</span>
+									</span>
+								    
+								</div>
+								<div class="body-type" th:text="${transaction.getTransactionType()}"></div>
+								<div class="body-amount"
+								     th:text="${transaction.accountToId == -1 or #strings.toString(transaction.accountFromId) == bankAccount.accountNumber} ? '' + '-' + '$' + ${transaction.amount} : '$' + ${transaction.amount}"
+								     th:classappend="${(transaction.accountToId == -1 or #strings.toString(transaction.accountFromId) == bankAccount.accountNumber) ? 'red-color' : 'green-color'}">
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+</body>
+
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pay Bills</title>
+    <div th:replace="~{navbar :: head}"></div>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/paybills.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script>
+        function isAmountValid() {
+		    var amountInput = document.getElementById('amountValue');
+		    var amountValue = amountInput.value;
+		    var isValid = /^(?!0\d)\d+(\.\d+)?$/.test(amountValue);
+		    
+		    // 1. Verify input is in correct format and more than 0
+		    if (!isValid) {
+		        alert("Please enter a valid amount.");
+		        return false;
+		    }
+			
+			// 2. Verify input is a float and more than 0
+		    if (parseFloat(amountValue) <= 0) {
+		        alert("Amount must be more than 0.");
+		        return false;
+		    }
+		
+		    // 3. Verify input has at most 2 decimal places
+		    if ((amountValue.split('.')[1] || '').length > 2) {
+		        alert("Amount must have at most 2 decimal places.");
+		        return false;
+		    }
+
+		    return true;
+		}
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function displayModal() {
+		    var amountInput = document.getElementById('amountValue');
+		    var amountValue = parseFloat(amountInput.value).toFixed(2);
+		    
+		    // Update to display valid inputs as 2 decimal places
+		    if (!amountValue.includes('.')) {
+		        amountValue += '.00'; 
+		    } else if (amountValue.split('.')[1].length === 1) {
+		        amountValue += '0';
+		    }
+		    amountValue = '$' + amountValue;
+		    
+		    var fromBankAccount = document.querySelector('.from-body').value;
+		    var toCreditCard = document.querySelector('.to-body').innerText;
+		    
+		    document.getElementById('modal-amount').innerText = amountValue;
+		    document.getElementById('modal-action').innerText = 'Bank Account ' + fromBankAccount;
+		    document.getElementById('modal-account').innerText = toCreditCard;
+		
+		    document.getElementById('modal').style.display = 'flex';
+		    document.getElementById('overlay').style.display = 'block';
+		    
+		    // Set amountValue to be without the $
+		    amountValue = amountValue.substring(1);
+		}
+		
+		function submitForm() {
+            document.getElementById('paybill').submit();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+        
+        // Functions for insufficient funds popup
+        function checksForError() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const error = urlParams.get('error');
+			if (error === 'insufficientFunds') {
+				showInsufficientFundsPopup();
+			}else if (error === 'excessiveFunds') {
+                showExcessiveFundsPopup();
+            }else if (error === 'belowMinimumPayment') {
+                showMinPaymentPopup();
+            }
+		}
+
+        function showExcessiveFundsPopup() {
+            document.getElementById('excessive-funds-modal').style.display = 'flex';
+            document.getElementById('excessive-funds-overlay').style.display = 'block';
+
+		}
+
+		function closeExcessiveFundsPopup() {
+            document.getElementById('excessive-funds-modal').style.display = 'none';
+            document.getElementById('excessive-funds-overlay').style.display = 'none';
+            history.pushState({}, document.title, window.location.pathname);
+		}
+		function showMinPaymentPopup() {
+		    document.getElementById('min-payment-modal').style.display = 'flex';
+		    document.getElementById('min-payment-overlay').style.display = 'block';
+        }
+
+        function closeMinPaymentPopup() {
+            document.getElementById('min-payment-modal').style.display = 'none';
+            document.getElementById('min-payment-overlay').style.display = 'none';
+            history.pushState({}, document.title, window.location.pathname);
+        }
+
+        function showInsufficientFundsPopup() {
+			document.getElementById('insufficient-funds-modal').style.display = 'flex';
+			document.getElementById('insufficient-funds-overlay').style.display = 'block';
+		}
+		
+		function closeInsufficientFundsPopup() {
+			document.getElementById('insufficient-funds-modal').style.display = 'none';
+			document.getElementById('insufficient-funds-overlay').style.display = 'none';
+			history.pushState({}, document.title, window.location.pathname);
+		}
+		function setDate(){
+            document.addEventListener('DOMContentLoaded', (event) => {
+            const currentDateElement = document.getElementById('currentDate');
+            const today = new Date();
+            const dueDayOfMonth = document.getElementById('dueDayOfMonth').innerText;
+            const nextMnth =  new Date(today.getFullYear(), today.getMonth() + 1, dueDayOfMonth);
+            const dateString = nextMnth.toLocaleDateString(undefined, { // Use 'undefined' to use the browser's locale
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            currentDateElement.textContent = `${dateString}`;
+        });
+		}
+
+
+		// Call the checkForError method when the page loads
+		window.onload = function() {
+			checksForError();
+		}
+	    
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <!-- confirmation popup  -->
+        <div class = "overlay" id ="overlay" style="display: none;"></div>
+        <div class = "popup-container" id = "modal" style="display: none">
+                <div class = "popup-header" > Transaction Confirmation </div>
+                <div class = "popup-content-box">
+                    <div class = "popup-content-title"> To </div>
+                    <div class = "popup-content-body" id="modal-account"></div>
+                </div>
+                <div class = "popup-content-box">
+                    <div class = "popup-content-title"> Amount </div>
+                    <div class = "popup-content-body" id="modal-amount"></div>
+                </div>
+                <div class = "popup-content-box">
+                    <div class = "popup-content-title"> From </div>
+                    <div class = "popup-content-body" id="modal-action"></div>
+                </div>
+                <div class = "popup-button-stack">
+                    <div class = "popup-button-primary" onclick="submitForm()"> Confirm </div>
+                    <div class = "popup-button-secondary" onclick="closeModal()"> Cancel </div>
+                </div>
+        </div>
+         <!-- Insufficient funds popup -->
+         <div class = "insufficient-funds-popup-overlay" id ="insufficient-funds-overlay" style="display: none;"></div>
+         <div class = "insufficient-funds-popup-container" id = "insufficient-funds-modal" style="display: none">
+             <div class = "insufficient-funds-popup-header">Insufficient Funds</div>
+             <div class = "insufficient-funds-popup-content-box">
+                 <div class = "insufficient-funds-popup-content-title">Uh-oh! It seems there aren't enough funds in your bank account to process this payment. 
+                    Please ensure you have sufficient funds available or consider an alternative action.
+                 </div>
+             </div>
+             <div class = "insufficient-funds-popup-button-stack">
+                 <div class = "insufficient-funds-popup-button-primary" onclick="closeInsufficientFundsPopup();">Confirm</div>
+             </div>
+         </div>
+        <!-- Excessive funds popup -->
+        <div class = "excessive-funds-popup-overlay" id ="excessive-funds-overlay" style="display: none;"></div>
+        <div class = "excessive-funds-popup-container" id = "excessive-funds-modal" style="display: none">
+            <div class = "excessive-funds-popup-header">Excessive Funds</div>
+            <div class = "excessive-funds-popup-content-box">
+                <div class = "excessive-funds-popup-content-title">Uh-oh! It seems you are trying to pay more than you need to.
+                    Please ensure you have entered the correct amount or consider an alternative action.
+                </div>
+            </div>
+            <div class = "excessive-funds-popup-button-stack">
+                <div class = "excessive-funds-popup-button-primary" onclick="closeExcessiveFundsPopup();">Confirm</div>
+            </div>
+        </div>
+        <!-- Min Payment popup -->
+        <div class = "min-payment-popup-overlay" id ="min-payment-overlay" style="display: none;"></div>
+        <div class = "min-payment-popup-container" id = "min-payment-modal" style="display: none">
+            <div class = "min-payment-popup-header">Minimum Payment</div>
+            <div class = "min-payment-popup-content-box">
+                <div class = "min-payment-popup-content-title">Uh-oh! It seems you are trying to pay less than the minimum payment required.
+                    Please ensure you have entered the correct amount or consider an alternative action.
+                </div>
+            </div>
+            <div class = "min-payment-popup-button-stack">
+                <div class = "min-payment-popup-button-primary" onclick="closeMinPaymentPopup();">Confirm</div>
+            </div>
+        </div>
+
+
+        <div th:replace="~{navbar :: body}"></div>
+
+        <div class="content">
+            <div class="page-top-container"></div>
+            <div class="container">
+                <div class="content-container">
+                    <div class="title">
+                        <div class="page-title">Pay Bills</div>
+                        <div class="page-subtitle">Easily pay your credit card bills</div>
+                    </div>
+                    <!-- container for bills info and pay bills form  -->
+                    <div class = "horizontal-container">
+                        <!-- bills info -->
+                        <div class = "bills-container">
+                            <div class = "bills-title"> Your bills </div>
+                            <div class = "bills-info">
+                                <div class = "bills-subtitle">Bills</div>
+                                <div class = "bills-body" th:text="'$' + ${creditCard.spendingLimit-creditCard.currentBalance}"></div>
+                            </div>
+                            <div class = "bills-info">
+                                <div class = "bills-subtitle">Minimum Payment</div>
+                                <div class = "bills-body" th:text="'$' + ${#numbers.formatDecimal(0.1*(creditCard.spendingLimit-creditCard.currentBalance),1,2)}"></div>
+                            </div>
+                            <div class = "bills-info">
+                                <div class = "bills-subtitle">Due Date</div>
+                                <div class = "bills-body" id="currentDate"></div>
+                                <div id="dueDayOfMonth" th:text="${creditCard.monthlyDueDate}" hidden></div>
+                                <script>
+                                    setDate();
+                                </script>
+                            </div>
+                        </div>
+                        <form action="/paybills/confirm" method="post" onsubmit="return isAmountValid()" id="paybill">
+                        <!-- pay bills form -->
+                        <div class = "pay-bills-form">
+                            <div class = "bills-label-container">
+                                <label for="to" class = "bills-subtitle">To</label>
+                                <div id="to" class="to-body" th:text="'Credit Card ' + ${creditCard.accountNumber}"></div>
+                                <input type="hidden" name="creditCardNumber" th:value="${creditCard.accountNumber}" />
+
+                            </div>
+                            <div class = "bills-label-container">
+                                <label for="amountValue" class = "bills-subtitle">Amount</label>
+                                <input type="text" id = "amountValue" name="amountValue" class="amount-body">
+                            </div>
+                            <div class = "bills-label-container">
+                                <label for="from" class = "bills-subtitle">From</label>
+                                <select id="from" name="account" class="from-body">
+                                    <option value="select" disabled>Select</option>
+                                    <option th:each="account : ${user.bankAccounts}" th:value="${account.accountNumber}" th:text="'Bank Account ' + ${account.accountNumber}"></option>
+                                </select>
+                                <div class = "send-request-button" onclick="if(isAmountValid()) {displayModal(); }"> Send Request </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<head xmlns:th="http://www.thymeleaf.org">
+    <title>Deposit/Withdraw</title>
+    
+    <div th:replace="~{navbar :: head}"></div>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/transaction.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+    <script>
+        function isAmountValid() {
+		    var amountInput = document.getElementById('amountValue');
+		    var amountValue = amountInput.value;
+		    var isValid = /^(?!0\d)\d+(\.\d+)?$/.test(amountValue);
+		    
+		    // 1. Verify input is in correct format
+		    if (!isValid) {
+		        alert("Please enter a valid amount.");
+		        return false;
+		    }
+			
+			// 2. Verify input has at most 2 decimal places
+		    if ((amountValue.split('.')[1] || '').length > 2) {
+		        alert("Amount must have at most 2 decimal places.");
+		        return false;
+		    }
+
+		    return true;
+		}
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function displayModal() {
+		    var amountInput = document.getElementById('amountValue');
+		    var amountValue = parseFloat(amountInput.value).toFixed(2);
+		    
+		    // Update to display valid inputs as 2 decimal places
+		    if (!amountValue.includes('.')) {
+		        amountValue += '.00'; 
+		    } else if (amountValue.split('.')[1].length === 1) {
+		        amountValue += '0';
+		    }
+		    amountValue = '$' + amountValue;
+		    
+		    var selectedAction = document.querySelector('.deposit-or-withdraw-options').value;
+		    var accountMessage = document.querySelector('.account-box').innerText;
+		    
+		    document.getElementById('modal-amount').innerText = amountValue;
+		    document.getElementById('modal-action').innerText = capitalizeFirstLetter(selectedAction);
+		    document.getElementById('modal-account').innerText = accountMessage;
+		
+		    document.getElementById('modal').style.display = 'flex';
+		    document.getElementById('overlay').style.display = 'block';
+		    
+		    // Set amountValue to be without the $
+		    amountValue = amountValue.substring(1);
+		}
+		
+		function submitForm() {
+            document.getElementById('amountForm').submit();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+        
+        // Functions for insufficient funds popup
+        function checksForError() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const error = urlParams.get('error');
+			if (error === 'insufficientFunds') {
+				showInsufficientFundsPopup();
+			}
+		}
+
+        function showInsufficientFundsPopup() {
+			document.getElementById('insufficient-funds-modal').style.display = 'flex';
+			document.getElementById('insufficient-funds-overlay').style.display = 'block';
+		}
+		
+		function closeInsufficientFundsPopup() {
+		    document.getElementById('insufficient-funds-modal').style.display = 'none';
+		    document.getElementById('insufficient-funds-overlay').style.display = 'none';
+		    history.pushState({}, document.title, window.location.pathname);
+		}
+
+		// Call the checkForError method when the page loads
+		window.onload = function() {
+			checksForError();
+		}
+	    
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <div class = "overlay" id ="overlay" style="display: none;"></div>
+        <div class = "popup-container" id = "modal" style="display: none">
+                <div class = "popup-header" > Transaction Confirmation </div>
+                <div class = "popup-content-box">
+                    <div class = "popup-content-title"> Account </div>
+                    <div class = "popup-content-body" id="modal-account"></div>
+                </div>
+                <div class = "popup-content-box">
+                    <div class = "popup-content-title"> Amount </div>
+                    <div class = "popup-content-body" id="modal-amount"></div>
+                </div>
+                <div class = "popup-content-box">
+                    <div class = "popup-content-title"> Deposit/Withdraw </div>
+                    <div class = "popup-content-body" id="modal-action"></div>
+                </div>
+                <div class = "popup-button-stack">
+                    <div class = "popup-button-primary" onclick="submitForm()"> Confirm </div>
+                    <div class = "popup-button-secondary" onclick="closeModal()"> Cancel </div>
+                </div>
+        </div>
+    
+        
+        <!-- Insufficient funds popup -->
+        <div class = "insufficient-funds-popup-overlay" id ="insufficient-funds-overlay" style="display: none;"></div>
+        <div class = "insufficient-funds-popup-container" id = "insufficient-funds-modal" style="display: none">
+		    <div class = "insufficient-funds-popup-header">Insufficient Funds</div>
+		    <div class = "insufficient-funds-popup-content-box">
+		        <div class = "insufficient-funds-popup-content-title">Uh-oh! It seems there aren't enough funds in your bank account to process this withdrawal. 
+					Please ensure you have sufficient funds available or consider an alternative action.
+				</div>
+		    </div>
+		    <div class = "insufficient-funds-popup-button-stack">
+		        <div class = "insufficient-funds-popup-button-primary" onclick="closeInsufficientFundsPopup();">Confirm</div>
+		    </div>
+		</div>
+
+
+   
+		<div th:replace="~{navbar :: body}"></div>
+
+        <div class="content">
+            <div class="page-top-container"></div>
+            <div class="container">
+                <div class="content-container">
+                    <div class="title">
+                        <div class="page-title">Deposit/Withdraw</div>
+                        <div class="page-subtitle">Easily deposit or withdraw funds online</div>
+                    </div>
+                    <div class="page-below-title-container"></div>
+                    
+                    <div class="centered-box">
+						<form action="/transaction/confirm" method="post" onsubmit="return isAmountValid()" id="amountForm">
+                            <label for="account" class="account">Account<br></label>
+                            <div class="account-box" th:text="'Bank Account ' + ${accountId}"></div><br>
+                            <input type="text" name="accountId" th:value="${accountId}" hidden>
+                            <label for="amount" class="amount">Amount</label><br>
+              				<input type="text" class="amount-box" id="amountValue" name="amount" placeholder="$0.00"><br>
+
+
+                            <label for="actions">Deposit/Withdraw</label><br>
+                            <select class="deposit-or-withdraw-options" name="action">
+                                <option value="select" disabled>Select</option>
+                                <option value="deposit">Deposit</option>
+                                <option value="withdraw">Withdraw</option>
+                            </select>
+
+                            <button type="button" class="send-request-button" onclick="if(isAmountValid()) { displayModal(); }">Send Request</button>
+
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

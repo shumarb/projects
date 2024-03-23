@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cards Information</title>
+    
+    <div th:replace="~{navbar :: head}"></div>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/cardsinfo.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    
+</head>
+<body>
+	<div class="main-container">
+		<div th:replace="~{navbar :: body}"></div>
+
+		<div class="content">
+			<div class="page-top-container"></div>
+			<div class="container">
+				<div class="content-container" th:object=${rewardsProfiles}>
+					<div class="title">
+						<div class="page-title">Credit Card Types</div>
+						<div class="page-subtitle">Find out more about the different credit card types</div>
+					</div>
+					<div class = "horizontal-container">
+						<div class = "credit-card-container" th:each="rewardsProfile : ${rewardsProfiles}">
+							<div class = "credit-card-title" th:text=${rewardsProfile.name}></div>
+							<div class = "credit-card-body">
+								<img th:src="@{'/svg/card' + ${rewardsProfile.rewardProfileId} + '.svg'}" alt="Card Image">
+	                            
+								<div class = "credit-card-info-header">Card Information</div>
+								<div class = "credit-card-info-body" th:text="${rewardsProfile.conversionPercentage} + '% on ' + ${rewardsProfile.description}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
