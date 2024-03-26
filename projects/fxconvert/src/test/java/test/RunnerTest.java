@@ -1,6 +1,9 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +18,12 @@ import com.fasterxml.jackson.databind.DatabindException;
 
 import entities.Currency;
 import entities.User;
+import exceptions.InsufficientAmountForConversionException;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidCurrencyException;
+import exceptions.SameCurrencyException;
+import exceptions.UserHasNoCurrencyException;
+import exceptions.UserNotFoundException;
 import main.Runner;
 
 class RunnerTest {
@@ -88,200 +97,119 @@ class RunnerTest {
 			"Tue, 13 Sep 2022 11:55:01 GMT"
 		);
 		
-		Runner.usersList = new ArrayList <User> ();
+		Runner.users = new ArrayList <User> ();
 		user1 = new User("Ali");
 		user1.addCurrencyToWallet("jpy", 10.0);
 		user1.addCurrencyToWallet("aud", 56.4);
 		user1.addCurrencyToWallet("eur", 88.0);
 		user1.addCurrencyToWallet("gbp", 1331.4);
-		Runner.usersList.add(user1);
+		Runner.users.add(user1);
 		
 		user2 = new User("John");
 		user2.addCurrencyToWallet("eur", 88.0);
 		user2.addCurrencyToWallet("gbp", 1331.4);
 		user2.addCurrencyToWallet("usd", 40);
-		Runner.usersList.add(user2);
+		Runner.users.add(user2);
 		
-		Runner.currenciesMap = new HashMap <String, Currency> ();
-		Runner.currenciesMap.put("eur", eur);
-		Runner.currenciesMap.put("gbp", gbp);
-		Runner.currenciesMap.put("jpy", jpy);
-		Runner.currenciesMap.put("aud", aud);
-		
-	}
-	
-	@Test
-	public void testUserExist_returnsCorrectUser() {
-		
-		Runner.usersList.add(user1);
-		assertEquals(user1, Runner.getsUser("Ali"));
+		Runner.currencies = new HashMap <String, Currency> ();
+		Runner.currencies.put("eur", eur);
+		Runner.currencies.put("gbp", gbp);
+		Runner.currencies.put("jpy", jpy);
+		Runner.currencies.put("aud", aud);
 		
 	}
 	
 	@Test
-	public void testUserExist_doesNotReturnNull() {
+	public void test_userNotFoundExceptionNotThrown_forExistingUser() throws UserNotFoundException {
 		
-		Runner.usersList.add(user1);
-		assertNotEquals(null, Runner.getsUser("Ali"));
-		
-	}
-	
-	@Test
-	public void testUserExist_doesNotReturnIncorrectUser() {
-		
-		Runner.usersList.add(user1);
-		Runner.usersList.add(user2);
-		assertNotEquals(user2, Runner.getsUser("Ali"));
+		Runner.users.add(user1);
+		assertDoesNotThrow(() -> Runner.getsUser("Ali"));
 		
 	}
 	
 	@Test
-	public void testUserDoesNotExist_returnsNull() {
+	public void test_userNotFoundExceptionThrown_forNonExistentUser() throws UserNotFoundException {
 		
-		assertEquals(null, Runner.getsUser("William"));
-		
-	}
-	
-	@Test
-	public void testUserDoesNotExist_doesNotReturnNonNullValue() {
-		
-		Runner.usersList.add(user1);
-		assertNotEquals(null, Runner.getsUser("Ali"));
+		assertThrows(UserNotFoundException.class, () -> {
+			Runner.getsUser("afa");
+		});
 		
 	}
 	
 	@Test
-	public void testUserDoesNotExist_doesNotReturnExistingUser() {
+	public void test_sameCurrencyExceptionThrown_forSameCurrencies() throws SameCurrencyException {
 		
-		assertNotEquals(null, Runner.getsUser("Ali"));
-		
-	}
-
-	@Test
-	public void test_isSameCurrencyReturnsTrue_forSameCurrencies() {
-		
-		assertEquals(true, Runner.isSameCurrency("sgd", "sgd"));
+		assertThrows(SameCurrencyException.class, () -> {
+			Runner.isSameCurrency("sgd", "sgd");
+		});
 	}
 	
 	@Test
-	public void test_isSameCurrencyDoesNotReturnFalse_forSameCurrencies() {
+	public void test_sameCurrencyExceptionNotThrown_forDifferentCurrencies() throws SameCurrencyException {
 		
-		assertNotEquals(false, Runner.isSameCurrency("sgd", "sgd"));
-	}
-	
-	@Test
-	public void test_isSameCurrencyReturnsFalse_forDifferentCurrencies() {
-		
-		assertEquals(false, Runner.isSameCurrency("aud", "sgd"));
-	}
-	
-	@Test
-	public void test_isSameCurrencyDoesNotReturnTrue_forDifferentCurrencies() {
-		
-		assertNotEquals(true, Runner.isSameCurrency("aud", "sgd"));
-	}
-	
-	@Test
-	public void test_doesCurrencyExistReturnsTrue_forExistentCurrency() {
-		
-		assertEquals(true, Runner.isValidCurrency("eur"));
-	}
-	
-	@Test
-	public void test_doesCurrencyExistDoesNotReturnFalse_forExistentCurrency() {
-		
-		assertNotEquals(false, Runner.isValidCurrency("eur"));
-	}
-	
-	@Test
-	public void test_doesCurrencyExistReturnFalse_forNonExistentCurrency() {
-		
-		assertEquals(false, Runner.isValidCurrency("afaefae"));
-	}
-	
-	@Test
-	public void test_doesCurrencyExistDoesNotReturnTrue_forNonExistentCurrency() {
-		
-		assertNotEquals(true, Runner.isValidCurrency("afaefae"));
-	}
-	
-	@Test
-	public void test_isValidAmountReturnsTrue_forValidAmount() {
-		
-		assertEquals(true, Runner.isValidAmount(10));
-	}
-	
-	public void test_isValidAmountDoesNotReturnFalse_forValidAmount() {
-		
-		assertNotEquals(false, Runner.isValidAmount(10));
-	}
-	
-	@Test
-	public void test_isValidAmountReturnsFalse_forInvalidAmount() {
-		
-		assertEquals(false, Runner.isValidAmount(-10));
-	}
-	
-	@Test
-	public void test_isValidAmountDoesNotReturnTrue_forInvalidAmount() {
-		
-		assertNotEquals(true, Runner.isValidAmount(-10));
-	}
-	
-	@Test
-	public void test_doesUserHaveCurrencyReturnsTrue_whenUserHasCurrency() {
-		
-		assertEquals(true, Runner.doesUserHaveCurrency(user1, "eur"));
+		assertDoesNotThrow(() -> Runner.isSameCurrency("eur", "gbp"));
 		
 	}
 	
 	@Test
-	public void test_doesUserHaveCurrencyDoesNotReturnFalse_whenUserHasCurrency() {
+	public void test_invalidCurrencyExceptionThrown_forNonExistentCurrency() {
 		
-		assertNotEquals(false, Runner.doesUserHaveCurrency(user1, "eur"));
+		assertThrows(InvalidCurrencyException.class, () -> {
+			Runner.isValidCurrency("ppp");
+		});
+	}
+	
+	@Test
+	public void test_invalidCurrencyExceptionNotThrown_forExistentCurrency() {
+		
+		assertDoesNotThrow(() -> Runner.isValidCurrency("eur"));
+	}
+	
+	@Test
+	public void test_invalidAmountExceptionThrown_forInvalidAmount() {
+		
+		assertThrows(InvalidAmountException.class, () -> {
+			Runner.isValidAmount(-10.14);
+		});
+	}
+	
+	public void test_invalidAmountExceptionNotThrown_forValidAmount() {
+		
+		assertDoesNotThrow(() -> Runner.isValidAmount(10.14));
+	}
+	
+	
+	@Test
+	public void test_userHasNoCurrencyExceptionThrown_whenUserDoesNotHaveCurrency() {
+		
+		assertThrows(UserHasNoCurrencyException.class, () -> {
+			Runner.doesUserHaveCurrency(user1, "sgd");
+		});
 		
 	}
 	
 	@Test
-	public void test_doesUserHaveCurrencyReturnsFalse_whenUserDoesNotHaveCurrency() {
+	public void test_userHasNoCurrencyExceptionNotThrown_whenUserHasCurrency() {
 		
-		assertEquals(false, Runner.doesUserHaveCurrency(user1, "sgd"));
-		
-	}
-	
-	@Test
-	public void test_doesUserHaveCurrencyDoesNotReturnTrue_whenUserDoesNotHaveCurrency() {
-		
-		assertNotEquals(true, Runner.doesUserHaveCurrency(user1, "sgd"));
+		assertDoesNotThrow(() -> Runner.doesUserHaveCurrency(user1, "eur"));
 		
 	}
 	
 	@Test
-	public void test_isSufficientAmountForConversionReturnsTrue_forSufficientAmount() {
+	public void test_insufficientAmountExceptionThrown_forInsufficientAmountForConversion() {
 		
-		assertEquals(true, Runner.isSufficientAmountForConversion(user1, "eur", 5));
-		
-	}
-	
-	@Test
-	public void test_isSufficientAmountForConversionDoesNotReturnFalse_forSufficientAmount() {
-		
-		assertNotEquals(false, Runner.isSufficientAmountForConversion(user1, "eur", 5));
-	}
-	
-	@Test
-	public void test_isSufficientAmountForConversionReturnsFalse_forInsufficientAmount() {
-		
-		assertEquals(false, Runner.isSufficientAmountForConversion(user1, "eur", 500));
+		assertThrows(InsufficientAmountForConversionException.class, () -> {
+			Runner.isSufficientAmountForConversion(user1, "eur", 100);
+		});
 		
 	}
 	
 	@Test
-	public void test_isSufficientAmountForConversionDoesNotReturnTrue_forInsufficientAmount() {
+	public void test_insufficientAmountExceptionNotThrown_forSufficientAmountForConversion() {
 		
-		assertNotEquals(true, Runner.isSufficientAmountForConversion(user1, "eur", 500));
-		
+		assertDoesNotThrow(() -> Runner.isSufficientAmountForConversion(user1, "eur", 5));
 	}
+	
 	
 	@Test
 	public void test_conversionOfCurrency_forAllAmountOfNonUsdCurrencyInWallet_toAnotherNonUsdCurrencyInWallet_totalCurrencyReducedByOne() throws StreamReadException, DatabindException, IOException {
