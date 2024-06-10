@@ -8,7 +8,7 @@ Project                                                                        |
 ------------------------------------------------------------------------------ | ---------------------------- | ---------- | ------
 [Learning](https://github.com/shumarb/learning)                                | October 2023 - Present       | Git, Java  | -
 [BookZone](https://github.com/shumarb/projects/tree/main/projects/bookZone)    | February 2024 - April 2024   | Git, Java, MySQL, Spring Framework | -
-[FXConvert](https://github.com/shumarb/projects/tree/main/projects/fxconvert)  | January 2024 - February 2024 | Git, Java  | -
+[FXConvert](https://github.com/shumarb/fxconvert)                              | January 2024 - February 2024 | Git, Java  | -
 [Hangman](https://github.com/shumarb/projects/tree/main/projects/hangman)      | December 2023		          | Git, Java  | -
 
 ### Team
