@@ -7,7 +7,7 @@ The following is a summary of my projects.
 Project                                                                        | Period                       | Tech Stack | Award
 ------------------------------------------------------------------------------ | ---------------------------- | ---------- | ------
 [Learning](https://github.com/shumarb/learning)                                | October 2023 - Present       | Git, Java  | -
-[BookZone](https://github.com/shumarb/projects/tree/main/projects/bookZone)    | February 2024 - April 2024   | Git, Java, MySQL, Spring Framework | -
+[BookZone](https://github.com/shumarb/bookZone)                                | February 2024 - April 2024   | Git, Java, MySQL, Spring Framework | -
 [FXConvert](https://github.com/shumarb/fxconvert)                              | January 2024 - February 2024 | Git, Java  | -
 [Hangman](https://github.com/shumarb/projects/tree/main/projects/hangman)      | December 2023		          | Git, Java  | -
 
