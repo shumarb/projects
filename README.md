@@ -6,16 +6,14 @@ The following is a summary of my projects.
 ### Individual
 Project                                                                        | Period                       | Tech Stack | Award
 ------------------------------------------------------------------------------ | ---------------------------- | ---------- | ------
-[Learning](https://github.com/shumarb/learning)                                | October 2023 - Present       | Git, Java  | -
-[BookZone](https://github.com/shumarb/bookZone)                                | February 2024 - April 2024   | Git, Java, MySQL, Spring Framework | -
-[FXConvert](https://github.com/shumarb/fxconvert)                              | January 2024 - February 2024 | Git, Java  | -
-[Hangman](https://github.com/shumarb/projects/tree/main/projects/hangman)      | December 2023		          | Git, Java  | -
+[BookZone](https://github.com/shumarb/bookzone)                                | February 2024 - Present      | Bootstrap, Git, HTML, Java, Javadoc, JavaScript, JUnit, MySQL, Spring Boot | -
+[FXConvert](https://github.com/shumarb/fxconvert)                              | January 2024 - February 2024 | Git, Java, Javadoc, JUnit, Log4J2  | -
+[Learning](https://github.com/shumarb/learning)                                | October 2023 - April 2024    | Git, Java  | -
 
 ### Team
 Project                                                                        | Period                       | Tech Stack | Award
 ------------------------------------------------------------------------------ | ---------------------------- | -----------| ------
-[FDM Bank](https://github.com/shumarb/projects/tree/main/projects/fdmbank)     | February 2024 - March 2024   | Git, Java,  MySQL, Spring Framework | -
+[FDM Bank](https://github.com/shumarb/fdmbank)                                 | February 2024 - March 2024   | Git, HTML, Java, JavaScript, JUnit, MySQL, Spring Boot | -
 [Crypto High School](https://github.com/shumarb/crypto-high-school)            | January 2019		          | Git | -
 [CRM Book](https://github.com/shumarb/cs2103)                                  | February 2018 - April 2018   | Git, Java, Jenkins | -
 [GeoPrints](https://github.com/2018-MTC-dynamicoders/geoprints)                | June 2018 		              | Git | $300
-
