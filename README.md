@@ -6,7 +6,7 @@ The following is a summary of my projects.
 ### Individual
 Project                                                                        | Period                       | Tech Stack | Award
 ------------------------------------------------------------------------------ | ---------------------------- | ---------- | ------
-[BookZone](https://github.com/shumarb/bookzone)                                | February 2024 - Present      | Java, Spring Boot, JUnit, Git, Bootstrap, MySQL, HTML, JavaScript | -
+[BookZone](https://github.com/shumarb/bookzone)                                | February 2024 - April 2024   | Java, Spring Boot, JUnit, Git, Bootstrap, MySQL, HTML, JavaScript | -
 [FXConvert](https://github.com/shumarb/fxconvert)                              | January 2024 - February 2024 | Git, Java, JUnit | -
 [Learning](https://github.com/shumarb/learning)                                | October 2023 - April 2024    | Git, Java  | -
 
