@@ -6,10 +6,10 @@ The following is a summary of my projects.
 ### Individual
 | Project                                           | Period                       | Award |
 |---------------------------------------------------|------------------------------|-------|
+| [Learning](https://github.com/shumarb/learning)   | October 2023 - Present   	   | -     |
 | [GameVault](https://github.com/shumarb/gamevault) | October 2024 - November 2024 | -     |
 | [BookZone](https://github.com/shumarb/bookzone)   | February 2024 - April 2024   | -     |
 | [FXConvert](https://github.com/shumarb/fxconvert) | January 2024 - February 2024 | -     |
-| [Learning](https://github.com/shumarb/learning)   | October 2023 - August 2024   | -     |
 
 ### Team
 | Project                                                             | Period                     | Award |
