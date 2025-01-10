@@ -15,8 +15,8 @@ The following is a summary of my projects.
 ### Team
 | Project                                                             | Period              | Award |
 |---------------------------------------------------------------------|---------------------|-------|
-| StreamHub                                                           | Aug - Oct 2024      | -     |
-| FDM Bank                                                            | Feb - Mar 2024      | -     |
+| StreamHub                                                           | Aug 2024 - Oct 2024 | -     |
+| FDM Bank                                                            | Feb 2024 - Mar 2024 | -     |
 | [Crypto High School](https://github.com/shumarb/crypto-high-school) | Jan 2019		          | -     |
 | [CRM Book](https://github.com/shumarb/cs2103)                       | Feb 2018 - Apr 2018 | -     |
 | [GeoPrints](https://github.com/2018-MTC-dynamicoders/geoprints)     | Jun 2018 		         | $300  |
