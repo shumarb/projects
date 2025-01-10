@@ -1,9 +1,9 @@
 # Projects
 
 ## Overview
-The following is a summary of my projects.
+This repository contains a summary of my projects.
 
-## Individual
+### Individual
 | Project                                             | Period               | Award |
 |-----------------------------------------------------|----------------------|-------|
 | [Learning](https://github.com/shumarb/learning)     | Oct 2023 - Present   | -     |
@@ -12,7 +12,7 @@ The following is a summary of my projects.
 | [BookZone](https://github.com/shumarb/bookzone)     | Feb 2024 - Mar 2024  | -     |
 | FXConvert                                           | Jan 2024             | -     |
 
-## Team
+### Team
 | Project                                                             | Period              | Award |
 |---------------------------------------------------------------------|---------------------|-------|
 | StreamHub                                                           | Aug 2024 - Oct 2024 | -     |
