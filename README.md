@@ -9,6 +9,7 @@ This repository contains a summary of my projects.
 | [GameVault](https://github.com/shumarb/gamevault)                   | Individual | Oct 2024 - Nov 2024 | -     |
 | [WorkPortal](https://github.com/shumarb/workportal)                 | Individual | Jul 2024 - Sep 2024 | -     |
 | StreamHub                                                           | Team       | Aug 2024 - Oct 2024 | -     |
+| Dream PC                                                            | Team       | Aug 2024 - Oct 2024 | -     |
 | FDM Bank                                                            | Team       | Feb 2024 - Mar 2024 | -     |
 | [BookZone](https://github.com/shumarb/bookzone)                     | Individual | Feb 2024 - Mar 2024 | -     |
 | FXConvert                                                           | Individual | Jan 2024            | -     |
