@@ -5,7 +5,8 @@ This repository contains a summary of my projects.
 
 | Project                                                             | Description                                     | Type          |  Award |
 |---------------------------------------------------------------------|-------------------------------------------------|---------------|--------|
-| [Learning](https://github.com/shumarb/learning)                     | Content of self-initiated learning              | Individual    | -      |
+| [LeetCode](https://github.com/shumarb/leetcode)                     | Summary of LeetCode submissions                 | Individual    | -      |
+| [Learning](https://github.com/shumarb/learning)                     | Self-initiated learning                         | Individual    | -      |
 | [GameVault](https://github.com/shumarb/gamevault)                   | Video Game Management System                    | Individual    | -      |
 | [WorkPortal](https://github.com/shumarb/workportal)                 | Employee Registration System                    | Individual    | -      |
 | StreamHub                                                           | Video Streaming Application                     | Team          | -      |
